@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+
+var MyComponent = React.createClass({
+  handleClick: function() {
+    this.refs.myTextInput.focus();
+  },
+  clickSwitch: function (event) {
+    var val = parseInt(event.target.value);
+    console.log(val);
+    if(val>=1&&val<=5 ){
+      var refName = "input"+val;
+      console.log(this.refs[refName])
+      this.refs[refName].focus();
+    }
+  }, 
+  render: function() {
+    var inputs = [];
+    for(var i = 1;i<=5;i++){
+      inputs.push(<li><input type="text" ref={"input"+i} /></li>);
+    }
+    return (
+      <div>
+        <input type="text" ref="myTextInput" onChange={this.clickSwitch} />
+        <input type="button" value="Focus the text input" onClick={this.handleClick} />
+        <div>
+          <ul>
+            {inputs}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+});
+
+ReactDOM.render(
+  <MyComponent />,
+  document.getElementById('example')
+);
+
+// 444444444444
+// var App = React.createClass({  
+//   handleChange: function(event) {  
+//       var index = event.target.value;  
+//       if(index >= 1 && index <= 10) {  
+//           //找到对应的输入框并将焦点设置到里面  
+//           var refName = "input" + index;  
+//           console.log(refName);
+//           //var inputDOM = React.findDOMNode(this.refs[refName]);
+//           //this.refs.refName不行 .具体名字 [变量]
+//           console.log(this.refs[refName]);  
+//           this.refs[refName].focus();  
+//       }  
+//   },  
+//   render: function() {  
+//       var inputs = [];  
+//       for(var i = 1; i <= 10; i++) {  
+//           inputs.push(<div><li><input type="text" ref={"input" + i}/></li><br/></div>);  
+//       }  
+//       return (  
+//           <div>  
+//               <label htmlFor="input" >在这里输入下面任意输入框的索引，光标会自动定位到输入框内：</label>  
+//               <input type="text" id="input" onChange={this.handleChange} />  
+//               <hr />  
+//               <ol>  
+//                   {inputs}  
+//               </ol>  
+//           </div>  
+//       )  
+//   }  
+// });  
+// ReactDOM.render(  
+//   <App />,  
+//   document.getElementById('example')
+// );  
+    </script>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      // var NotesList = React.createClass({
+      //   render: function() {
+      //     return (
+      //       <ol>
+      //         {
+      //           React.Children.map(this.props.children, function (child) {
+      //             return <li>{child}</li>;
+      //           })
+      //         }
+      //       </ol>
+      //     );
+      //   }
+      // });
+
+      // ReactDOM.render(
+      //   <NotesList>
+      //     <span>hello</span>
+      //     <span>world</span>
+      //   </NotesList>,
+      //   document.getElementById('example')
+      // );
+
+//222
+      // var Father = React.createClass({
+      //   render: function () {
+      //     return(
+      //       <ul>
+      //       {
+      //         React.Children.map(this.props.children, (child)=>{
+      //           return <li>{child}</li>;
+      //         })
+      //       }
+      //       </ul>
+      //     );
+      //   }
+      // }); 
+      // ReactDOM.render(
+      //   <Father>
+      //     <a href="#">link1</a>
+      //     <a href='#'>link2</a>
+      //   </Father>,
+      //   document.getElementById('example')
+      // )
+//333
+      // React.Children.map()用法
+      //子组件
+      function RadioOption(props) {
+        return (
+          <label>
+            <input type="radio" value={props.value} name={props.name} />
+            {props.label}
+          </label>
+        )
+      }
+      //父组件filter的作用,props是指父组件的props
+      function renderChildren(props) {
+          
+        //遍历所有子组件
+        return React.Children.map(props.children, child => {
+          if (child.type === RadioOption)
+            return React.cloneElement(child, {
+              //把父组件的props.name赋值给每个子组件
+              name: props.name
+            })
+          else
+            return child
+        })
+      }
+      //父组件
+      function RadioGroup(props) {
+        return (
+          <div>
+            {renderChildren(props)}
+          </div>
+        )
+      }
+      function App() {
+        return (
+          <RadioGroup name="hello">
+            <RadioOption label="选项一" value="1" />
+            <RadioOption label="选项二" value="2" />
+            <RadioOption label="选项三" value="3" />
+            <other>ssss</other>
+          </RadioGroup>
+        )
+      }
+     // export default App;
+      ReactDOM.render(
+        <App></App>,
+        document.getElementById('example')
+      )
+      
+    </script>
+  </body>
+</html>
+
