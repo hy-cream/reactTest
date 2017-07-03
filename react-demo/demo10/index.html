@@ -25,6 +25,7 @@
             this.setState({
               opacity: opacity
             });
+            //setinterval()方法中，回调函数一定要加.bind(this)方法  否则this指向window全局对象（当回调函数执行时上下文Context会被设置为全局变量）
           }.bind(this), 100);
         },
 

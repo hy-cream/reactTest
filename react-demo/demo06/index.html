@@ -12,20 +12,31 @@
       // 类型得是string
       var data = '123';
       console.log(typeof(data));
-      var MyTitle = React.createClass({
-        // propTypes
+      // var MyTitle = React.createClass({
+      //   // propTypes
+      //   propTypes: {
+      //     title: React.PropTypes.string.isRequired
+      //   },
+
+      //   render: function() {
+      //     return <h1> {this.props.title} </h1>;
+      //   }
+      // });
+      
+      class MyTitle2 extends React.Component{
+        constructor(){
+          super();
+        }
         propTypes: {
           title: React.PropTypes.string.isRequired
-        },
-
-        render: function() {
-          return <h1> {this.props.title} </h1>;
         }
-      });
-
+        render(){
+          return <h1>{this.props.title}</h1>
+        }
+      }
       ReactDOM.render(
         <div>
-          <MyTitle title={data} />
+          <MyTitle2 title={data} />
         </div>,
         document.getElementById('example')
       );

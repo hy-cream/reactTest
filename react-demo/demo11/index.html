@@ -9,34 +9,69 @@
   <body>
     <div id="example"></div>
     <script type="text/babel">
-var UserGist = React.createClass({
-  getInitialState: function() {
-    return {
-      username: '',
-      lastGistUrl: ''
-    };
-  },
-
-  componentDidMount: function() {
-    $.get(this.props.source, function(result) {
-      var lastGist = result[0];
-      if (this.isMounted()) {
-        this.setState({
-          username: lastGist.owner.login,
-          lastGistUrl: lastGist.html_url
-        });
+    class UserGist extends React.Component{
+      constructor(){
+        super();
+        this.state = {
+          username: '',
+          lastGistUrl: ''
+        };
       }
-    }.bind(this));
-  },
+      componentDidMount(){
+        //ajax请求s
+        this.test = $.get(this.props.source, function (result) { 
+           var lastGist = result[0];
+           //this.isMounted()废除了,要用componentWillUnMount来清除在 componentDidMount 中创建的 DOM 元素
+          //if (this.isMounted()) {
+            this.setState({
+              username: lastGist.owner.login,
+              lastGistUrl: lastGist.html_url
+            });
+          //}
+          //Ajax的回调函数中也要像setInterval一样绑定this
+        }.bind(this));
+      }
+      //组件从 DOM 中移除的时候立刻被调用。 里面可做清除
+      componentWillUnmount(){
+        //abort()立即取消请求
+        this.test.abort();
+      }
+      render(){
+        return (
+          <div>
+            {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
+          </div>
+        );
+      }
+    }
+//var UserGist = React.createClass({
+  // getInitialState: function() {
+  //   return {
+  //     username: '',
+  //     lastGistUrl: ''
+  //   };
+  // },
 
-  render: function() {
-    return (
-      <div>
-        {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
-      </div>
-    );
-  }
-});
+  // componentDidMount: function() {
+  //   $.get(this.props.source, function(result) {
+  //     var lastGist = result[0];
+  //     if (this.isMounted()) {
+  //       this.setState({
+  //         username: lastGist.owner.login,
+  //         lastGistUrl: lastGist.html_url
+  //       });
+  //     }
+  //   }.bind(this));
+  // },
+
+  // render: function() {
+  //   return (
+  //     <div>
+  //       {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
+  //     </div>
+  //   );
+  // }
+//});
 
 ReactDOM.render(
   <UserGist source="https://api.github.com/users/octocat/gists" />,

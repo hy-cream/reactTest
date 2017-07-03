@@ -66,10 +66,10 @@
       function renderChildren(props) {
           
         //遍历所有子组件
-        return React.Children.map(props.children, child => {
+        return React.Children.map(props.children, (child) => {
           if (child.type === RadioOption)
             return React.cloneElement(child, {
-              //把父组件的props.name赋值给每个子组件
+              //把父组件的props.name(hello)赋值给每个子组件
               name: props.name
             })
           else

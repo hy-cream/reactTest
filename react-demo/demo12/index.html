@@ -9,6 +9,7 @@
   <body>
     <div id="example"></div>
     <script type="text/babel">
+    //ES6 promise处理异步请求数据 
 var RepoList = React.createClass({
   getInitialState: function() {
     return {
@@ -20,6 +21,7 @@ var RepoList = React.createClass({
 
   componentDidMount() {
     this.props.promise.then(
+      // 箭头函数中的this自动绑定到定义时的上下文Context（该对象，而不是全局window对象）
       value => this.setState({loading: false, data: value}),
       error => this.setState({loading: false, error: error}));
   },
