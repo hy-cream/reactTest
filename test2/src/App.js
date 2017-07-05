@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import hello from "./components/Hellos"
+import Hello from "./components/Hello"
+import {createStore} from 'redux'
+import counter from './reducers'
+import Counter2 from "./components/Counter2"
+import Counter from "./components/Counter"
+
+//createStore（reducer）
+const store = createStore(counter);
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <hello name="react"></hello>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Hello name="react" />
+        {/*用户操作dispatch（action），store自动调用reducer*/}
+        <Counter
+          value={store.getState()}
+          onIncrement={()=> store.dispatch({type: 'INCREMENT'})}
+          onDecrement={()=> store.dispatch({type: 'DECREMENT'})}
+          />
+        <Counter2
+          value={store.getState()}
+          onIncreaseClick={()=>store.dispatch({type: 'increase'})}
+        />
       </div>
     );
   }
 }
-
 export default App;
