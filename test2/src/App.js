@@ -5,11 +5,20 @@ import {createStore} from 'redux'
 import counter from './reducers'
 import Counter2 from "./components/Counter2"
 import Counter from "./components/Counter"
+import CommentBox from './components/comment/CommentBox'
+import api from './api/index' 
 
 //createStore（reducer）
 const store = createStore(counter);
 class App extends Component {
+  constructor(){
+    super();
+    this.state ={
+      value:0
+    };
+  }
   render() {
+    console.log(store.getState());
     return (
       <div className="App">
         <Hello name="react" />
@@ -23,6 +32,7 @@ class App extends Component {
           value={store.getState()}
           onIncreaseClick={()=>store.dispatch({type: 'increase'})}
         />
+        <CommentBox data={api} />
       </div>
     );
   }

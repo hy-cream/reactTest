@@ -17,8 +17,8 @@ class Counter extends React.Component{
         setTimeout(this.props.onIncrement,1000);
     }
     render(){
-        console.log('vlue'+this.props.value)
         const {value, onIncrement, onDecrement} = this.props;
+        console.log('value'+value)
         return(
             <p>
                 点击: {value} 次
@@ -33,6 +33,7 @@ class Counter extends React.Component{
             </p>
         )
     }
+    
 }
 Counter.propTypes = {
     value: propTypes.number.isRequired,
