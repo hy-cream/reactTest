@@ -1,6 +1,5 @@
 import React from 'react'
 import Comment from './Comment'
-import Remarkable from 'remarkable'
 
 class CommentList extends React.Component{
     render(){

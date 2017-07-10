@@ -6,6 +6,7 @@ import counter from './reducers'
 import Counter2 from "./components/Counter2"
 import Counter from "./components/Counter"
 import CommentBox from './components/comment/CommentBox'
+import ProductTable from './components/product/ProductTable'
 import api from './api/index' 
 
 //createStore（reducer）
@@ -32,7 +33,8 @@ class App extends Component {
           value={store.getState()}
           onIncreaseClick={()=>store.dispatch({type: 'increase'})}
         />
-        <CommentBox data={api} />
+        <CommentBox data={api.data} />
+        <ProductTable data={api.products} />
       </div>
     );
   }
