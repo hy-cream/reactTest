@@ -1,8 +1,8 @@
 import fetch from 'dva/fetch';
 
-function parseJSON(response) {
-  return response.json();
-}
+// function parseJSON(response) {
+//   return response.json();
+// }
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -22,7 +22,13 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default async function request(url, options) {
-  const response = await response.json();
+  //先要fetch 获得response
+  const response = await fetch(url, options);
+  console.log(response)
+  checkStatus(response);
+  //再把数据
+  const data = await response.json();
+  console.log(data)
   const ret = {
     data,
     headers: {}

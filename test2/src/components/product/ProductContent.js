@@ -11,7 +11,7 @@ class ProductContent extends React.Component{
     this.props.content.forEach(function(productline) {
       //父indexOf(子)
       //|| !(this.props.isChecked&&productline.stocked)
-      // 找不到或者库存为空
+      // 找不到或者库存为空  
       if(productline.name.toLowerCase().indexOf(this.props.keyword.toLowerCase())===-1 || (this.props.isChecked&&!productline.stocked)){
         return;
       }

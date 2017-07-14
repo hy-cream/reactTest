@@ -4,10 +4,7 @@ import {connect} from 'dva';
 import {Table, Pagination, Popconfirm} from 'antd';
 import {PAGE_SIZE} from '../../constants';
 
-function Users({list: dataSource, total, page:current}) {
-  function deleteHandler(id){
-    console.warn(`todo: ${id}`)
-  }
+function Users({list: dataSource, total, page:current, loading}) {
   const columns = [
     {
       title: 'Name',
@@ -39,6 +36,12 @@ function Users({list: dataSource, total, page:current}) {
       ),
     },
   ]
+  function deleteHandler(id){
+    console.warn(`todo: ${id}`)
+  }
+  function onChange(pageNumber){
+    console.log('page:'+pageNumber)
+  }
   return (
     <div className={styles.normal}>
       <div>
@@ -47,20 +50,25 @@ function Users({list: dataSource, total, page:current}) {
           dataSource={dataSource}
           rowKey={record=>record.id}
           pagination={false}
+          loading={loading}
         />
         <Pagination 
           className="ant-table-pagination"
           total={total}
           current={current}
           pageSize={PAGE_SIZE}
+          onChange={onChange}
         />
       </div>
     </div>
   );
 }
 function mapStateToProps(state){
+  console.log(state)
   const {list, total, page} = state.users;
+  console.log(state.users.list)
   return{
+    loading: state.loading.models.users,
     list,
     total,
     page
