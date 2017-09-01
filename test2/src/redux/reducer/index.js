@@ -1,28 +1,71 @@
 //reducer switch-case处理不同的action 从而修改store状态
-// export const counter1 = (state = 0, action)=>{
-//     console.log(state)
-//     //const value = state;
-//     switch(action.type){
-//         case 'INCREMENT':{
-//             console.log('+1')
-//             //console.log(state);
-//             return state+1;
-//             //return Object.assign({}, state, {state:state+1});   
-//         }
-//         case 'DECREMENT':
-//             return state-1;
-//         default:
-//             return state;
+import { combineReducers } from 'redux'
+import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from '../action/index'
+const { SHOW_ALL } = VisibilityFilters
 
-//     }
-// }
-export const counter2 = (state={count2:0}, action)=>{
-	const count2 = state.count2;
+const initialState = {
+	count1: 0,
+}
+function reducer(state = initialState, action){
 	switch(action.type){
-		case 'COUNTER2_INCREASE':
-			return {count2:count2+1};
+		case 'INCREMENT':{
+			console.log(state,'reducer')
+			return {
+				...state,
+				count1 : state.count1+1
+			}
+		}
+		case 'DECREMENT':{
+			return{
+				...state,
+				count1 : state.count1-1
+			}
+		}		
 		default:
-			return state;
+				return state;
 	}
 }
 
+function visibilityFilter(state = SHOW_ALL, action) {
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+      return action.filter
+    default:
+      return state
+  }
+}
+
+function todos(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [
+        ...state,
+        {
+          text: action.text,
+          completed: false
+        }
+      ]
+    case COMPLETE_TODO:
+      return [
+        ...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          completed: true
+        }),
+        ...state.slice(action.index + 1)
+      ]
+    default:
+      return state
+  }
+}
+
+const todoApp = combineReducers({
+	reducer,
+  visibilityFilter,
+  todos
+})
+export default todoApp
+
+// combineReducers({
+//   visibilityFilter,
+//   todos
+// })

@@ -55,7 +55,7 @@ class CommentBox extends React.Component{
         )
     }
 }
-CommentBox.propTypes = {
-    data: propTypes.isRequired
-}
+// CommentBox.propTypes = {
+//     data: propTypes.isRequired
+// }
 export default CommentBox
