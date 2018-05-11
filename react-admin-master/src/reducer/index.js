@@ -2,8 +2,28 @@
  * Created by 叶子 on 2017/7/30.
  */
 import { combineReducers } from 'redux';
+import * as http from '../axios/index';
 import * as type from '../action/type';
+const initialState = {
+    edit:{
 
+    }
+
+    
+}
+const editReducer = (state, action) => {
+    console.log('reducer', action)
+    switch(action.type) {
+        case 'submitForm':
+            console.log('submitForm')
+            return {...state, ...action.payload};
+        case 'fetchList':
+            console.log('fetchList')
+            return {...state, ...action.payload};
+        default: 
+            return {...state};
+    }
+}
 const handleData = (state = {isFetching: true, data: {}}, action) => {
     switch (action.type) {
         case type.REQUEST_DATA:
@@ -15,6 +35,7 @@ const handleData = (state = {isFetching: true, data: {}}, action) => {
     }
 };
 const httpData = (state = {}, action) => {
+    console.log('re222222', action)
     switch (action.type) {
         case type.RECEIVE_DATA:
         case type.REQUEST_DATA:
@@ -28,5 +49,6 @@ const httpData = (state = {}, action) => {
 };
 
 export default combineReducers({
-    httpData
+    httpData,
+    edit: editReducer,
 });

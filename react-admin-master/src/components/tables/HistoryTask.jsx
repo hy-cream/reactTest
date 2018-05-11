@@ -3,9 +3,26 @@
  */
 import React, { Component } from 'react';
 import { Row, Col, Card, Table } from 'antd';
+import { fetchListRequest } from '../../axios';
+import { connect } from 'react-redux';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 
-export default class HistoryTask extends Component {
+class HistoryTask extends Component {
+    componentWillMount() {
+        fetchListRequest().then((response) => {
+        if (response.errorno === 0) {
+            dispatch({
+                type: 'fetchList',
+                payload: {
+                    listData: response.data,
+                }
+            })
+            message.success('获取历史列表成功');
+        } else {
+            message.error('获取历史列表失败');
+        }
+    })
+    }
     render() {
         const columns = [{
             title: 'id',
@@ -14,64 +31,64 @@ export default class HistoryTask extends Component {
             render: text => <a>{text}</a>,
         }, {
             title: '唯一标识',
-            dataIndex: 'onlyKey',
-            key: 'onlyKey',
+            dataIndex: 'jobId',
+            key: 'jobId',
         }, {
             title: '读数据源',
-            dataIndex: 'readDatasource',
-            key: 'readDatasource',
+            dataIndex: 'reader',
+            key: 'reader',
         }, {
             title: '写数据源',
-            dataIndex: 'writeDatasource',
-            key: 'writeDatasource',
+            dataIndex: 'writer',
+            key: 'writer',
         }, {
             title: '开始时间',
-            dataIndex: 'startTime',
-            key: 'startTime',
+            dataIndex: 'createJobDate',
+            key: 'createJobDate',
         }, {
             title: '结束时间',
-            dataIndex: 'endTime',
-            key: 'endTime',
+            dataIndex: 'endJobDate',
+            key: 'endJobDate',
         }, {
             title: '状态',
-            dataIndex: 'status',
-            key: 'status',
+            dataIndex: 'state',
+            key: 'state',
         }, {
             title: '错误信息',
-            dataIndex: 'errInfo',
-            key: 'errInfo',
+            dataIndex: 'errorMsg',
+            key: 'errorMsg',
         }];
-        
+        // const data = listData;
         const data = [{
             key: '1',
             id: 1,
-            onlyKey: 1,
-            readDatasource: '13123',
-            writeDatasource: 'John Brown',
-            startTime: '2012',
-            endTime: '2012',
-            status: '12',
-            errInfo: 'New York No. 1 Lake Park',
+            jobId: 1,
+            reader: '13123',
+            writer: 'John Brown',
+            createJobDate: '2012',
+            endJobDate: '2012',
+            state: '12',
+            errorMsg: 'New York No. 1 Lake Park',
         }, {
             key: '2',
             id: 1,
-            onlyKey: 1,
-            readDatasource: '13123',
-            writeDatasource: 'John Brown',
-            startTime: '2012',
-            endTime: '2012',
-            status: '12',
-            errInfo: 'New York No. 1 Lake Park',
+            jobId: 1,
+            reader: '13123',
+            writer: 'John Brown',
+            createJobDate: '2012',
+            endJobDate: '2012',
+            state: '12',
+            errorMsg: 'New York No. 1 Lake Park',
         }, {
             key: '3',
             id: 1,
-            onlyKey: 1,
-            readDatasource: '13123',
-            writeDatasource: 'John Brown',
-            startTime: '2012',
-            endTime: '2012',
-            status: '12',
-            errInfo: 'New York No. 1 Lake Park',
+            jobId: 1,
+            reader: '13123',
+            writer: 'John Brown',
+            createJobDate: '2012',
+            endJobDate: '2012',
+            state: '12',
+            errorMsg: 'New York No. 1 Lake Park',
         }];
         return (
             <div className="gutter-example">
@@ -89,3 +106,9 @@ export default class HistoryTask extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    const { listData } = state.edit;
+    return{ listData };
+};
+
+export default connect(mapStateToProps)(HistoryTask);

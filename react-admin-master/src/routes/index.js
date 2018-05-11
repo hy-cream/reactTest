@@ -7,26 +7,25 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import BasicForm from '../components/forms/BasicForm';
 import HistoryTask from '../components/tables/HistoryTask';
 import TaskStatus from '../components/tables/TaskStatus';
-import AsynchronousTable from '../components/tables/AsynchronousTable';
-import Icons from '../components/ui/Icons';
-import Buttons from '../components/ui/Buttons';
-import Spins from '../components/ui/Spins';
-import Modals from '../components/ui/Modals';
-import Notifications from '../components/ui/Notifications';
-import Tabs from '../components/ui/Tabs';
-import Banners from '../components/ui/banners';
-import Drags from '../components/ui/Draggable';
-import Dashboard from '../components/dashboard/Dashboard';
-import Gallery from '../components/ui/Gallery';
-import Wysiwyg from 'bundle-loader?lazy!../components/ui/Wysiwyg';  // 按需加载富文本配置
-import Bundle from '../components/widget/Bundle';
-import MapUi from '../components/ui/map';
+// import Icons from '../components/ui/Icons';
+// import Buttons from '../components/ui/Buttons';
+// import Spins from '../components/ui/Spins';
+// import Modals from '../components/ui/Modals';
+// import Notifications from '../components/ui/Notifications';
+// import Tabs from '../components/ui/Tabs';
+// import Banners from '../components/ui/banners';
+// import Drags from '../components/ui/Draggable';
+// import Dashboard from '../components/dashboard/Dashboard';
+// import Gallery from '../components/ui/Gallery';
+// import Wysiwyg from 'bundle-loader?lazy!../components/ui/Wysiwyg';  // 按需加载富文本配置
+// import Bundle from '../components/widget/Bundle';
+// import MapUi from '../components/ui/map';
 
-const WysiwygBundle = (props) => (
-    <Bundle load={Wysiwyg}>
-        {(Component) => <Component {...props} />}
-    </Bundle>
-);
+// const WysiwygBundle = (props) => (
+//     <Bundle load={Wysiwyg}>
+//         {(Component) => <Component {...props} />}
+//     </Bundle>
+// );
 
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
@@ -43,9 +42,8 @@ export default class CRouter extends Component {
                 <Route exact path="/app/form/basicForm" component={BasicForm} />
                 <Route exact path="/app/table/historyTask" component={HistoryTask} />
                 <Route exact path="/app/table/taskStatus" component={TaskStatus} />
-                <Route exact path="/app/table/asynchronousTable" component={AsynchronousTable} />
 
-                <Route exact path="/app/ui/icons" component={Icons} />
+                {/*<Route exact path="/app/ui/icons" component={Icons} />
                 <Route exact path="/app/ui/buttons" component={Buttons} />
                 <Route exact path="/app/ui/spins" component={Spins} />
                 <Route exact path="/app/ui/modals" component={Modals} />
@@ -55,7 +53,7 @@ export default class CRouter extends Component {
                 <Route exact path="/app/ui/wysiwyg" component={WysiwygBundle} />
                 <Route exact path="/app/ui/drags" component={Drags} />
                 <Route exact path="/app/ui/gallery" component={Gallery} />
-                <Route exact path="/app/ui/map" component={MapUi} />
+                <Route exact path="/app/ui/map" component={MapUi} />*/}
 
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>
